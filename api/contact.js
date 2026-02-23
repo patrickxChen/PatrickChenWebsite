@@ -62,9 +62,17 @@ function normalizeEnvValue(value) {
     return ''
   }
 
-  const trimmed = value.trim()
-  const quotedMatch = trimmed.match(/^"(.+)"$/)
-  return quotedMatch ? quotedMatch[1].trim() : trimmed
+  return value
+    .trim()
+    .replace(/\\"/g, '"')
+    .replace(/^['"\\\s]+/, '')
+    .replace(/['"\\\s]+$/, '')
+}
+
+function normalizeSupabaseUrl(value) {
+  const normalized = normalizeEnvValue(value)
+  const match = normalized.match(/https?:\/\/[^\s"\\]+/i)
+  return match ? match[0] : normalized
 }
 
 export default async function handler(req, res) {
@@ -92,7 +100,7 @@ export default async function handler(req, res) {
     return
   }
 
-  const supabaseUrl = normalizeEnvValue(process.env.SUPABASE_URL)
+  const supabaseUrl = normalizeSupabaseUrl(process.env.SUPABASE_URL)
   const supabaseServiceRoleKey = normalizeEnvValue(process.env.SUPABASE_SERVICE_ROLE_KEY)
 
   if (!supabaseUrl || !supabaseServiceRoleKey) {
@@ -104,22 +112,28 @@ export default async function handler(req, res) {
     return
   }
 
-  const response = await fetch(`${supabaseUrl}/rest/v1/contact_submissions`, {
-    method: 'POST',
-    headers: {
-      apikey: supabaseServiceRoleKey,
-      Authorization: `Bearer ${supabaseServiceRoleKey}`,
-      'Content-Type': 'application/json',
-      Prefer: 'return=representation',
-    },
-    body: JSON.stringify({
-      name: validated.values.name,
-      email: validated.values.email,
-      message: validated.values.message,
-      source: 'portfolio-web',
-      status: 'new',
-    }),
-  })
+  let response
+  try {
+    response = await fetch(`${supabaseUrl}/rest/v1/contact_submissions`, {
+      method: 'POST',
+      headers: {
+        apikey: supabaseServiceRoleKey,
+        Authorization: `Bearer ${supabaseServiceRoleKey}`,
+        'Content-Type': 'application/json',
+        Prefer: 'return=representation',
+      },
+      body: JSON.stringify({
+        name: validated.values.name,
+        email: validated.values.email,
+        message: validated.values.message,
+        source: 'portfolio-web',
+        status: 'new',
+      }),
+    })
+  } catch {
+    res.status(500).json({ ok: false, message: 'Submission failed. Supabase configuration is invalid.' })
+    return
+  }
 
   if (!response.ok) {
     const errorText = await response.text()
