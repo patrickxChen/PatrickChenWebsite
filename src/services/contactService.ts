@@ -3,25 +3,45 @@ import type { ContactSubmissionPayload, ContactSubmissionResult } from '../types
 export async function submitContactForm(
   payload: ContactSubmissionPayload,
 ): Promise<ContactSubmissionResult> {
-  const response = await fetch('/api/contact', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  })
+  const controller = new AbortController()
+  const timeoutId = window.setTimeout(() => {
+    controller.abort()
+  }, 15000)
 
-  const data = (await response.json()) as Partial<ContactSubmissionResult>
+  try {
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    })
 
-  if (!response.ok) {
+    let data: Partial<ContactSubmissionResult> = {}
+    try {
+      data = (await response.json()) as Partial<ContactSubmissionResult>
+    } catch {
+      data = {}
+    }
+
+    if (!response.ok) {
+      return {
+        ok: false,
+        message: data.message ?? 'Something went wrong while sending your message.',
+      }
+    }
+
+    return {
+      ok: true,
+      message: data.message ?? 'Message sent successfully.',
+    }
+  } catch {
     return {
       ok: false,
-      message: data.message ?? 'Something went wrong while sending your message.',
+      message: 'Request timed out or failed. Please try again, or email me directly at patrickccc47@gmail.com.',
     }
-  }
-
-  return {
-    ok: true,
-    message: data.message ?? 'Message sent successfully.',
+  } finally {
+    window.clearTimeout(timeoutId)
   }
 }

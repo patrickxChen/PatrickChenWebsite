@@ -63,21 +63,28 @@ export function ContactForm() {
 
     setIsSubmitting(true)
 
-    const result = await submitContactForm({
-      name: values.name.trim(),
-      email: values.email.trim(),
-      message: values.message.trim(),
-    })
+    try {
+      const result = await submitContactForm({
+        name: values.name.trim(),
+        email: values.email.trim(),
+        message: values.message.trim(),
+      })
 
-    if (result.ok) {
-      setStatus({ variant: 'success', message: result.message })
-      setValues(initialValues)
-      setErrors({})
-    } else {
-      setStatus({ variant: 'error', message: result.message })
+      if (result.ok) {
+        setStatus({ variant: 'success', message: result.message })
+        setValues(initialValues)
+        setErrors({})
+      } else {
+        setStatus({ variant: 'error', message: result.message })
+      }
+    } catch {
+      setStatus({
+        variant: 'error',
+        message: 'Unable to submit right now. Please try again or email patrickccc47@gmail.com.',
+      })
+    } finally {
+      setIsSubmitting(false)
     }
-
-    setIsSubmitting(false)
   }
 
   return (
