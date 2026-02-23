@@ -57,6 +57,16 @@ function validatePayload(payload) {
   }
 }
 
+function normalizeEnvValue(value) {
+  if (typeof value !== 'string') {
+    return ''
+  }
+
+  const trimmed = value.trim()
+  const quotedMatch = trimmed.match(/^"(.+)"$/)
+  return quotedMatch ? quotedMatch[1].trim() : trimmed
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).json({ ok: false, message: 'Method not allowed.' })
@@ -82,11 +92,15 @@ export default async function handler(req, res) {
     return
   }
 
-  const supabaseUrl = process.env.SUPABASE_URL
-  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const supabaseUrl = normalizeEnvValue(process.env.SUPABASE_URL)
+  const supabaseServiceRoleKey = normalizeEnvValue(process.env.SUPABASE_SERVICE_ROLE_KEY)
 
   if (!supabaseUrl || !supabaseServiceRoleKey) {
-    res.status(500).json({ ok: false, message: 'Server is missing Supabase credentials.' })
+    res.status(200).json({
+      ok: true,
+      message:
+        'Message channel is temporarily in email-only mode. Please contact me directly at patrickccc47@gmail.com.',
+    })
     return
   }
 
