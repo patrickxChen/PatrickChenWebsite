@@ -17,11 +17,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
       <h2 className="text-xl font-semibold text-text">{project.title}</h2>
 
-      <div className="project-image mt-4 overflow-hidden rounded-lg border border-white/10">
+      <div className="project-image mt-4 rounded-lg border border-white/10">
         <img
           src={project.imageUrl}
           alt={`${project.title} preview`}
-          className="h-44 w-full object-cover transition duration-300 hover:scale-[1.02]"
+          className="project-image-photo h-44 w-full rounded-md object-cover transition duration-300 hover:scale-[1.02]"
         />
       </div>
 

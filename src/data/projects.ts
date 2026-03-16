@@ -13,6 +13,18 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: 'algolize',
+    title: 'AlgoLize',
+    summary:
+      'Graph and tree algorithm visualizer with a Monaco editor + SVG canvas workflow for step-through debugging. Includes runtime event playback, fault-tolerant execution traces, and one-click templates/datasets for rapid demos.',
+    iconText: 'AL',
+    imageUrl: '/projects/AlgoLize/AlgoLize.png',
+    technologies: ['React', 'TypeScript', 'Vite', 'Monaco Editor', 'SVG'],
+    repoUrl: 'https://github.com/patrickxChen/Graph-Tree-Visualizer',
+    liveUrl: 'https://graph-tree-visualizer.vercel.app/',
+    featured: true,
+  },
+  {
     id: 'parsar',
     title: 'ParsAR',
     summary:
@@ -32,5 +44,6 @@ export const projects: Project[] = [
     imageUrl: '/projects/pacmangame/Pacman.png',
     technologies: ['Java', 'TypeScript', 'HTML5 Canvas', 'Vite', 'Vercel'],
     repoUrl: 'https://github.com/patrickxChen/PacMan-Game',
+    liveUrl: 'https://pacman-web-one.vercel.app/',
   },
 ]

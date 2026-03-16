@@ -13,7 +13,7 @@ const navItems: NavItem[] = [
   { label: 'Hobbies', to: '/hobbies' },
 ]
 
-const resumePath = '/resume/Patrick_Chen_External_Resume2026.pdf'
+const resumePath = '/resume/PatrickChen_ExternalRes2026.pdf'
 
 const baseLinkClass =
   'nav-link-animated rounded-md px-3 py-2 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'

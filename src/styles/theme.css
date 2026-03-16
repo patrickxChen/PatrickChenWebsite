@@ -1,25 +1,22 @@
-:root {
-  --color-bg: #b69573;
-  --color-bg-rgb: 182 149 115;
-  --color-bg-soft-rgb: 159 126 93;
-  --color-surface: #f4e8d2;
-  --color-surface-rgb: 244 232 210;
-  --color-text: #2f2014;
-  --color-text-rgb: 47 32 20;
-  --color-accent: #78b89a;
-  --color-accent-rgb: 120 184 154;
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IM+Fell+English+SC&family=Kalam:wght@400;700&display=swap');
 
-  --font-sans:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    Helvetica,
-    Arial,
-    Apple Color Emoji,
-    Segoe UI Emoji;
+:root {
+  --color-bg: #2a1f18;
+  --color-bg-rgb: 42 31 24;
+  --color-bg-soft-rgb: 64 49 38;
+  --color-surface: #f5eddc;
+  --color-surface-rgb: 245 237 220;
+  --color-text: #2e2016;
+  --color-text-rgb: 46 32 22;
+  --color-ink-rgb: 34 26 20;
+  --color-accent: #8e3b2f;
+  --color-accent-rgb: 142 59 47;
+  --color-gold-rgb: 173 137 79;
+
+  --font-sans: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-display: 'IM Fell English SC', 'Times New Roman', serif;
+  --font-blackletter: 'IM Fell English SC', 'Times New Roman', serif;
+  --font-ink: 'Kalam', 'Comic Sans MS', cursive;
 
   --layout-max-width: 72rem;
   --space-page-x: 1rem;

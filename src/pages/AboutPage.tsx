@@ -1,6 +1,42 @@
 import { HeroCta } from '../components/hero/HeroCta'
 import { HeroIntro } from '../components/hero/HeroIntro'
 
+const technicalSkills = [
+  {
+    category: 'Languages',
+    items: ['Python', 'Java', 'C/C++', 'C#', 'SQL', 'JavaScript/TypeScript', 'Verilog', 'HTML/CSS'],
+  },
+  {
+    category: 'Frameworks & Libraries',
+    items: [
+      'Flask',
+      'Django',
+      'React.js',
+      'SQLAlchemy',
+      'NumPy',
+      'Pandas',
+      'scikit-learn',
+      'Matplotlib',
+      'OpenCV',
+    ],
+  },
+  {
+    category: 'Developer Tools',
+    items: [
+      'Git',
+      'GitLab CI/CD',
+      'GitHub Actions',
+      'Docker',
+      'Linux',
+      'Bash',
+      'Postman',
+      'Supabase',
+      'Figma',
+      'Adobe PS',
+    ],
+  },
+]
+
 export function AboutPage() {
   return (
     <main className="app-container py-12 md:py-16">
@@ -14,8 +50,21 @@ export function AboutPage() {
             <HeroIntro
               name="Patrick Chen"
               title="Software Developer building modern web experiences"
-              intro="I build responsive, performant web apps with clean architecture and thoughtful user experience. I enjoy turning product ideas into polished interfaces that are fast, accessible, and maintainable."
+              intro="I’m a software developer focused on building products that feel both technically solid and genuinely enjoyable to use. I care a lot about clean architecture, readable code, and thoughtful UX details that make apps feel polished from the first interaction."
             />
+
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-text/80 md:text-base">
+              At Waterloo Software Engineering, I’m especially interested in full-stack product development, practical AI tooling,
+              and interactive systems that turn complex ideas into intuitive experiences. I love working at the intersection of
+              engineering depth and product clarity—taking something ambitious, breaking it down, and shipping it in a way that
+              real users can immediately understand.
+            </p>
+
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-text/80 md:text-base">
+              Outside of coding, I spend a lot of time on hobbies that build discipline and creativity: swimming, competitive games,
+              and piano. I completed RCM Level 10 Piano, which has shaped how I approach practice, iteration, and precision in
+              software work too.
+            </p>
 
             <p className="mt-5 inline-flex rounded-md border border-accent/30 bg-accent/10 px-3 py-2 text-sm font-medium text-accent">
               University of Waterloo · Software Engineering · Class of 2030
@@ -45,7 +94,7 @@ export function AboutPage() {
                 GitHub
               </a>
               <a
-                href="/resume/Patrick_Chen_External_Resume2026.pdf"
+                href="/resume/PatrickChen_ExternalRes2026.pdf"
                 download
                 className="rounded-md border border-accent/40 bg-accent/10 px-3 py-2 text-sm font-semibold text-accent transition hover:bg-accent hover:text-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
@@ -67,15 +116,54 @@ export function AboutPage() {
             <div className="mt-8">
               <HeroCta label="View Projects" to="/projects#projects-section" />
             </div>
+
+            <div className="about-hobbies-strip mt-6">
+              <p className="text-sm leading-6 text-text/80">
+                Outside of coding, I recharge with swimming, piano (RCM Level 10), and competitive strategy games.
+              </p>
+              <div className="about-hobbies-grid mt-4">
+                <div className="about-hobby-card">
+                  <span>Swimming</span>
+                </div>
+                <div className="about-hobby-card">
+                  <span>RCM Level 10 Piano</span>
+                </div>
+                <div className="about-hobby-card">
+                  <span>Competitive Gaming</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="hero-image-frame animate-hero-enter relative z-10">
+          <div className="hero-image-frame taped-photo-frame animate-hero-enter relative z-10">
             <img
               src="/images/PatrickChenProtrait.JPG"
               alt="Portrait of Patrick Chen"
               className="h-full w-full rounded-xl object-cover"
             />
           </div>
+        </div>
+      </section>
+
+      <section className="techstack-section mt-8 md:mt-10" aria-label="Technical skills">
+        <header className="mb-5 space-y-2 md:mb-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">Technical Skills</p>
+          <h2 className="text-2xl font-bold tracking-tight text-text md:text-3xl">Tech Stack</h2>
+        </header>
+
+        <div className="techstack-grid">
+          {technicalSkills.map((skillGroup) => (
+            <article key={skillGroup.category} className="techstack-card">
+              <h3 className="text-lg font-semibold text-text md:text-xl">{skillGroup.category}</h3>
+              <div className="mt-3 flex flex-wrap gap-2.5">
+                {skillGroup.items.map((skill) => (
+                  <span key={skill} className="tech-chip">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </article>
+          ))}
         </div>
       </section>
     </main>
